@@ -1,0 +1,35 @@
+@{
+    ViewData["Title"] = "Administration";
+}
+
+<h1 class="h3 mb-4">Administration</h1>
+
+<div class="row g-3">
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h2 class="h5">Users</h2>
+                <p class="text-muted">View all accounts, change roles or delete users.</p>
+                <a asp-action="Users" class="btn btn-primary">Manage users</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h2 class="h5">Posts</h2>
+                <p class="text-muted">Moderate posts. Available after the Post model is added.</p>
+                <button class="btn btn-secondary" disabled>Coming soon</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h2 class="h5">Comments</h2>
+                <p class="text-muted">Moderate comments. Available after the Comment model is added.</p>
+                <button class="btn btn-secondary" disabled>Coming soon</button>
+            </div>
+        </div>
+    </div>
+</div>

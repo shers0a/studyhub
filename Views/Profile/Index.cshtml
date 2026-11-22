@@ -1,0 +1,43 @@
+@model ApplicationUser
+@{
+    ViewData["Title"] = "My profile";
+    var name = string.IsNullOrWhiteSpace(Model.DisplayName) ? Model.UserName : Model.DisplayName;
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<div class="card shadow-sm mx-auto" style="max-width: 640px;">
+    <div class="card-body text-center">
+        @if (!string.IsNullOrEmpty(Model.AvatarUrl))
+        {
+            <img src="@Model.AvatarUrl" alt="Profile picture" class="rounded-circle mb-3"
+                 style="width: 140px; height: 140px; object-fit: cover;" />
+        }
+        else
+        {
+            <div class="rounded-circle bg-secondary text-white d-inline-flex align-items-center justify-content-center mb-3"
+                 style="width: 140px; height: 140px; font-size: 3rem;">
+                @name!.Substring(0, 1).ToUpper()
+            </div>
+        }
+
+        <h2 class="h4">@name</h2>
+        <p class="text-muted mb-1">@Model.Email</p>
+        @if (!string.IsNullOrEmpty(Model.StudyProgram))
+        {
+            <p class="mb-1"><strong>@Model.StudyProgram</strong></p>
+        }
+        <p class="text-muted small">Member since @Model.CreatedAt.ToString("dd MMM yyyy")</p>
+
+        <hr />
+        <h3 class="h6 text-start">About me</h3>
+        <p class="text-start">
+            @(string.IsNullOrWhiteSpace(Model.Bio) ? "You have not written a bio yet." : Model.Bio)
+        </p>
+
+        <a asp-action="Edit" class="btn btn-primary">Edit profile</a>
+    </div>
+</div>
