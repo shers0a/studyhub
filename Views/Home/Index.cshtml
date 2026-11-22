@@ -1,8 +1,40 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="text-center py-5">
+    <h1 class="display-4 fw-bold">StudyHub</h1>
+    <p class="lead text-muted mb-4">The best place for students to learn together.</p>
+
+    <div class="d-flex justify-content-center flex-wrap gap-3">
+        <a class="btn btn-primary btn-lg rounded-pill px-4" asp-controller="StudyGroups" asp-action="Index">See Groups</a>
+        <a class="btn btn-outline-primary btn-lg rounded-pill px-4" asp-controller="Posts" asp-action="Index">Study Materials</a>
+    </div>
+</section>
+
+<section class="row g-4 pb-4">
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Study groups</h5>
+                <p class="card-text text-muted">Join groups for the subjects you are preparing for and talk with your colleagues before exams.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Study materials</h5>
+                <p class="card-text text-muted">Share summaries, solved exercises and video tutorials, and comment on what others post.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Follow colleagues</h5>
+                <p class="card-text text-muted">Follow other students and see their latest materials in your personal feed.</p>
+            </div>
+        </div>
+    </div>
+</section>
