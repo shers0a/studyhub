@@ -4,6 +4,16 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>402d8413-0290-4456-8836-f463e2fe9604</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="10.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.0" />
+    <!-- Versiune fixata explicit: pachetul tranzitiv 9.0.4 are o vulnerabilitate cunoscuta (NU1902) -->
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.0" />
+  </ItemGroup>
 
 </Project>
