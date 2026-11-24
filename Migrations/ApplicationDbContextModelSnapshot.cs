@@ -244,6 +244,38 @@ namespace proiect_dotnet.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("proiect_dotnet.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("proiect_dotnet.Models.GroupMembership", b =>
                 {
                     b.Property<int>("Id")
@@ -305,6 +337,50 @@ namespace proiect_dotnet.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("GroupMessages");
+                });
+
+            modelBuilder.Entity("proiect_dotnet.Models.Post", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("TextContent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("VideoPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VideoUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("proiect_dotnet.Models.StudyGroup", b =>
@@ -395,6 +471,25 @@ namespace proiect_dotnet.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("proiect_dotnet.Models.Comment", b =>
+                {
+                    b.HasOne("proiect_dotnet.Models.Post", "Post")
+                        .WithMany("Comments")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("proiect_dotnet.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("proiect_dotnet.Models.GroupMembership", b =>
                 {
                     b.HasOne("proiect_dotnet.Models.StudyGroup", "Group")
@@ -433,6 +528,17 @@ namespace proiect_dotnet.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("proiect_dotnet.Models.Post", b =>
+                {
+                    b.HasOne("proiect_dotnet.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("proiect_dotnet.Models.StudyGroup", b =>
                 {
                     b.HasOne("proiect_dotnet.Models.ApplicationUser", "Moderator")
@@ -442,6 +548,11 @@ namespace proiect_dotnet.Migrations
                         .IsRequired();
 
                     b.Navigation("Moderator");
+                });
+
+            modelBuilder.Entity("proiect_dotnet.Models.Post", b =>
+                {
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("proiect_dotnet.Models.StudyGroup", b =>
