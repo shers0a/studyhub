@@ -18,6 +18,8 @@ namespace proiect_dotnet.Data
         public DbSet<StudyGroup> StudyGroups {get; set;}
         public DbSet<GroupMembership> GroupMemberships {get; set;}
         public DbSet<GroupMessage> GroupMessages {get; set;}
+        public DbSet<Post> Posts {get; set;}
+        public DbSet<Comment> Comments {get; set;}
         // TODO (Pas 3): De ce este obligatoriu base.OnModelCreating? Aici vei adauga relatiile Restrict pentru Follow/Reaction.
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -44,6 +46,22 @@ namespace proiect_dotnet.Data
                 .HasOne(m => m.User).WithMany()
                 .HasForeignKey(m => m.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Post>()
+                .HasOne(p => p.User).WithMany()
+                .HasForeignKey(p => p.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Comment>()
+                .HasOne(c => c.User).WithMany()
+                .HasForeignKey(c => c.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // deleting a post deletes its comments
+            builder.Entity<Comment>()
+                .HasOne(c => c.Post).WithMany(p => p.Comments)
+                .HasForeignKey(c => c.PostId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
